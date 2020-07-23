@@ -20,7 +20,7 @@ public class SimpleArray<T> {
     }
 
     public void remove(int index) {
-        System.arraycopy(array, index+1, array, index, pointer-index);
+        System.arraycopy(array, index+1, array, index, pointer-index+1);
     }
 
     public T get(int index) {

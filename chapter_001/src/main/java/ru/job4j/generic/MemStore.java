@@ -1,6 +1,7 @@
 package ru.job4j.generic;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public final class MemStore<T extends Base> implements Store<T> {
@@ -30,12 +31,17 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        for (T model : mem) {
-            if (model.getId().equals(id)) {
-                int index = mem.indexOf(model);
-                return mem.get(index);
+        return mem.get(findIndexById(id));
+    }
+
+    private int findIndexById(String id){
+        Iterator<T> it = mem.iterator();
+        while (it.hasNext()){
+            T model = it.next();
+            if(model.getId().equals(id)){
+                return mem.indexOf(model);
             }
         }
-        return null;
+        return -1;
     }
 }
