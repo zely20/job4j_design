@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleArray<T> {
 
@@ -11,31 +12,19 @@ public class SimpleArray<T> {
     }
 
     public void add(T value) {
-        if (pointer < array.length) {
             array[pointer++] = value;
-        }
     }
 
     public void set(int index, T model) {
-        if (index < array.length) {
-            array[index] = model;
-        }
+            array[Objects.checkIndex(index, pointer)] = model;
     }
 
     public void remove(int index) {
-        if (index < array.length) {
-            for (int i = index; i < pointer; i++) {
-                if (i == pointer-1) {
-                    array[i] = null;
-                } else {
-                    array[i] = array[i + 1];
-                }
-            }
-        }
+        System.arraycopy(array, index+1, array, index, pointer-index);
     }
 
     public T get(int index) {
-        return (T) array[index];
+        return (T) array[Objects.checkIndex(index, pointer)];
     }
 
     public Iterator<T> iterator() {
@@ -47,7 +36,7 @@ public class SimpleArray<T> {
         private int cursor = 0;
         @Override
         public boolean hasNext() {
-            return cursor < array.length;
+            return cursor < pointer;
         }
 
         @Override
