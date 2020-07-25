@@ -11,6 +11,7 @@ public class SimpleArray<T> {
         this.array = new Object[size];
     }
 
+
     public void add(T value) {
             array[pointer++] = value;
     }
@@ -20,7 +21,10 @@ public class SimpleArray<T> {
     }
 
     public void remove(int index) {
-        System.arraycopy(array, index+1, array, index, pointer-index+1);
+        Objects.checkIndex(index,pointer);
+        System.arraycopy(array, index+1, array, index, array.length-index-1);
+        array[array.length-1]=null;
+        pointer--;
     }
 
     public T get(int index) {
