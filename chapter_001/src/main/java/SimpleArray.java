@@ -20,11 +20,13 @@ public class SimpleArray<T> {
             array[Objects.checkIndex(index, pointer)] = model;
     }
 
-    public void remove(int index) {
+    public T remove(int index) {
         Objects.checkIndex(index,pointer);
+        T value = (T) array[index];
         System.arraycopy(array, index+1, array, index, array.length-index-1);
         array[array.length-1]=null;
         pointer--;
+        return value;
     }
 
     public T get(int index) {
