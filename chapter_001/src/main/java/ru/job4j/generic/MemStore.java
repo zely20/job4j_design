@@ -18,7 +18,7 @@ public final class MemStore<T extends Base> implements Store<T> {
         if(i == -1){
             return false;
         }
-        mem.add(i, model);
+        mem.set(i, model);
         return true;
     }
 
