@@ -61,7 +61,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
                  if(l.prev != null){
                      l = l.next;
                  }
-                 return (E) l;
+                 return (E) l.item;
              }
          };
      }
