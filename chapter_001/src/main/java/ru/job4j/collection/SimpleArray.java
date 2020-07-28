@@ -4,8 +4,8 @@ import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
 
-    private Object[] container;
-    private int pointer = 0;
+    protected Object[] container;
+    protected int pointer = 0;
     private int modCount = 0;
 
     public SimpleArray() {

@@ -8,7 +8,7 @@ public class SimpleQueue<T> {
     int count = 0;
 
     public T poll() {
-        T temp ;
+        T temp;
         T result = null;
         for (int i = 0; i < count; i++) {
             result = in.pop();
