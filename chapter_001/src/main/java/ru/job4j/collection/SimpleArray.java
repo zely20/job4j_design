@@ -5,7 +5,7 @@ import java.util.*;
 public class SimpleArray<T> implements Iterable<T> {
 
     protected Object[] container;
-    protected int pointer = 0;
+    private int pointer = 0;
     private int modCount = 0;
 
     public SimpleArray() {

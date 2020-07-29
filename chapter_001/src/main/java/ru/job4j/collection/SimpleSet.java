@@ -6,7 +6,7 @@ public class SimpleSet<E>  implements Iterable<E> {
     SimpleArray<E> set = new SimpleArray<E>();
 
     public void add(E e){
-        for (int i = 0; i < set.pointer; i++) {
+        for (int i = 0; i < set.size(); i++) {
             if (set.get(i).equals(e)) {
                 return;
             }
