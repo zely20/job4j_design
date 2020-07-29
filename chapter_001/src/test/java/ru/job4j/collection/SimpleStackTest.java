@@ -18,8 +18,11 @@ public class SimpleStackTest {
     public void whenPushPollThenPushPoll() {
         SimpleStack<Integer> stack = new SimpleStack<>();
         stack.push(1);
-        stack.pop();
         stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.pop();
+        stack.pop();
         assertThat(stack.pop(), is(2));
     }
 

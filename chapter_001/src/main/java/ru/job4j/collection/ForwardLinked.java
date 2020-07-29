@@ -22,14 +22,18 @@ public class ForwardLinked<T> implements Iterable<T> {
     public <T> T deleteLast() {
         Node<T> before = null;
         Node<T> temp = (Node<T>) head;
-        while (temp != null) {
-            Node<T> next = temp.next;
-            temp.next = before;
+        Node<T> next = temp.next;
+        T result = null;
+        while (next != null) {
             before = temp;
             temp = next;
+            next = next.next;
         }
-        before.next = null;
-        return before.value;
+        result = (T) temp.value;
+        if(before != null) {
+            before.next = null;
+        }
+        return result;
     }
 
     public void deleteFirst() {
