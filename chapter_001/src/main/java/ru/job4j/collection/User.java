@@ -16,6 +16,7 @@ public class User {
         this.children = children;
         this.birthday = birthday;
     }
+
 }
 class Main2 {
     public static void main(String[] args) {
