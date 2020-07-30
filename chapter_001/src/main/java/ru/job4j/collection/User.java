@@ -22,6 +22,7 @@ class Main2 {
         User user1 = new User("Alex", 5, new GregorianCalendar(1984,Calendar.JUNE, 14));
         User user2 = new User("Alex", 5, new GregorianCalendar(1984,Calendar.JUNE, 14));
 
+
         Map<User,Object> map = new HashMap<>();
         map.put(user1, null);
         map.put(user2, null);
