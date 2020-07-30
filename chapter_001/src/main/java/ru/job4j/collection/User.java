@@ -18,9 +18,15 @@ public class User {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name, children, birthday);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return children == user.children &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(birthday, user.birthday);
     }
+
 }
 class Main2 {
     public static void main(String[] args) {
@@ -31,6 +37,7 @@ class Main2 {
         Map<User,Object> map = new HashMap<>();
         map.put(user1, null);
         map.put(user2, null);
+        System.out.println(user1.equals(user2));
         System.out.println(map);
     }
 }
