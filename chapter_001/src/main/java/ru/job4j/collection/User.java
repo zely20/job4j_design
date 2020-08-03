@@ -3,9 +3,9 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class User {
-    String name;
-    int children;
-    Calendar birthday;
+    private String name;
+    private int children;
+    private Calendar birthday;
 
     public User(){
 
