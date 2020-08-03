@@ -17,7 +17,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    @Override
+   @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -27,10 +27,10 @@ public class User {
                 Objects.equals(birthday, user.birthday);
     }
 
-    @Override
+/*    @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
-    }
+    }*/
 }
 class Main2 {
     public static void main(String[] args) {
