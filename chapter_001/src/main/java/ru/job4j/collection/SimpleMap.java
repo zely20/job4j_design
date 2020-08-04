@@ -39,11 +39,12 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
 
     public <V> V get(K key) {
         int index = indexFor(capacity, hash(key));
-
-        return null;
+        return (V) table[index].value;
     }
 
     public boolean delete(K key) {
+        int index = indexFor(capacity, hash(key));
+        table[index] = null;
         return false;
     }
 
