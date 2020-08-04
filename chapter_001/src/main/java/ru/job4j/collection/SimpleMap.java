@@ -1,8 +1,10 @@
 package ru.job4j.collection;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SimpleMap<K, V> {
+public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
 
     private Node<K, V>[] table;
     private int capacity = 16;
@@ -23,22 +25,45 @@ public class SimpleMap<K, V> {
     }
 
     public boolean insert(K key, V value) {
-        int index = indexFor(size, hash(key));
-        if (table[index] == null) {
+        int index = indexFor(capacity, hash(key));
+        if (Objects.isNull(table[index])) {
             table[index] = new Node<>(hash(key), key, value);
             size++;
             modCount++;
             return true;
+        } else if(Objects.nonNull(table[index]) && table[index].getKey().equals(key) ) {
+            return false;
         }
         return false;
     }
 
     public <V> V get(K key) {
+        int index = indexFor(capacity, hash(key));
+
         return null;
     }
 
     public boolean delete(K key) {
         return false;
+    }
+
+    @Override
+    public Iterator<Node> iterator() {
+        return new Iterator<Node>() {
+            int cursor = 0;
+            @Override
+            public boolean hasNext() {
+                return cursor != capacity-1;
+            }
+
+            @Override
+            public Node next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                return table[cursor++];
+            }
+        };
     }
 
     static class Node<K, V> {
@@ -83,6 +108,22 @@ public class SimpleMap<K, V> {
         @Override
         public int hashCode() {
             return Objects.hash(Objects.hashCode(key) ^ Objects.hashCode(value));
+        }
+    }
+}
+
+
+class Main{
+    public static void main(String[] args) {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        System.out.println(map.insert(1,"first"));
+        System.out.println(map.insert(1,"second"));
+        System.out.println(map.insert(2,"second"));
+        System.out.println(map.insert(2,"third"));
+
+        Iterator<SimpleMap.Node> it = map.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
         }
     }
 }
