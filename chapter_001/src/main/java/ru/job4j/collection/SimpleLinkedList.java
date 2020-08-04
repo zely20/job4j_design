@@ -50,7 +50,7 @@ public class SimpleLinkedList<E> implements Iterable<E> {
                      throw new ConcurrentModificationException();
                  }
                     e = e.next;
-                 return e!= null;
+                 return e != null;
              }
 
              @Override
