@@ -25,6 +25,9 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
     }
 
     public boolean insert(K key, V value) {
+        if(capacity == size) {
+            resize();
+        }
         int index = indexFor(capacity, hash(key));
         if (Objects.isNull(table[index])) {
             table[index] = new Node<>(hash(key), key, value);
@@ -44,8 +47,24 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
 
     public boolean delete(K key) {
         int index = indexFor(capacity, hash(key));
+        if(Objects.isNull(table[index])) {
+            return false;
+        }
         table[index] = null;
-        return false;
+        modCount++;
+        return true;
+    }
+
+    private void resize() {
+        Node<K, V>[] temp = (Node<K, V>[]) new Node[capacity *= 2];
+        for (int i = 0; i < size; i++) {
+            if (Objects.nonNull(table[i])) {
+                K tempKey = table[i].getKey();
+                int index = indexFor(capacity, hash(tempKey));
+                temp[index] = table[i];
+            }
+        }
+        table = temp;
     }
 
     @Override
