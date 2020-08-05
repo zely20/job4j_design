@@ -1,13 +1,14 @@
 package ru.job4j.collection;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
+public class SimpleMap<K, V> implements Iterable<SimpleMap.Node> {
 
     private Node<K, V>[] table;
-    private int capacity = 16;
+    private int capacity = 8;
     private int size = 0;
     private int modCount = 0;
 
@@ -25,7 +26,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
     }
 
     public boolean insert(K key, V value) {
-        if(capacity == size) {
+        if ((capacity * 0.75) == size) {
             resize();
         }
         int index = indexFor(capacity, hash(key));
@@ -34,7 +35,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
             size++;
             modCount++;
             return true;
-        } else if(Objects.nonNull(table[index]) && table[index].getKey().equals(key) ) {
+        } else if (Objects.nonNull(table[index]) && table[index].getKey().equals(key)) {
             return false;
         }
         return false;
@@ -47,17 +48,18 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
 
     public boolean delete(K key) {
         int index = indexFor(capacity, hash(key));
-        if(Objects.isNull(table[index])) {
+        if (Objects.isNull(table[index])) {
             return false;
         }
         table[index] = null;
+        size--;
         modCount++;
         return true;
     }
 
     private void resize() {
         Node<K, V>[] temp = (Node<K, V>[]) new Node[capacity *= 2];
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i <= size; i++) {
             if (Objects.nonNull(table[i])) {
                 K tempKey = table[i].getKey();
                 int index = indexFor(capacity, hash(tempKey));
@@ -71,14 +73,22 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
     public Iterator<Node> iterator() {
         return new Iterator<Node>() {
             int cursor = 0;
+            int expectedModCount = modCount;
+
             @Override
             public boolean hasNext() {
-                return cursor != capacity-1;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                while (cursor < table.length && Objects.isNull(table[cursor])) {
+                    cursor++;
+                }
+                return cursor < table.length;
             }
 
             @Override
             public Node next() {
-                if(!hasNext()){
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 return table[cursor++];
@@ -133,17 +143,26 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node>{
 }
 
 
-class Main{
+class Main {
     public static void main(String[] args) {
         SimpleMap<Integer, String> map = new SimpleMap<>();
-        System.out.println(map.insert(1,"first"));
-        System.out.println(map.insert(1,"second"));
-        System.out.println(map.insert(2,"second"));
-        System.out.println(map.insert(2,"third"));
+        System.out.println(map.insert(1, "first"));
+        System.out.println(map.insert(2, "second"));
+        System.out.println(map.insert(3, "three"));
+        System.out.println(map.insert(4, "four"));
 
-        Iterator<SimpleMap.Node> it = map.iterator();
+           Iterator<SimpleMap.Node> it = map.iterator();
         while (it.hasNext()) {
-            System.out.println(it.next());
+                System.out.println(it.next());
+                }
+
+                map.delete(2);
+                map.insert(5, "fdsfsdf");
+
+
+                Iterator<SimpleMap.Node> it1 = map.iterator();
+        while (it1.hasNext()) {
+        System.out.println(it1.next());
         }
-    }
-}
+        }
+        }
