@@ -11,12 +11,13 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node> {
     private int capacity = 8;
     private int size = 0;
     private int modCount = 0;
+    private static final float LOAD_FACTOR = 0.75f;
 
     public SimpleMap() {
         table = (Node<K, V>[]) new Node[capacity];
     }
 
-    private final int indexFor(int length, int hash) {
+    private int indexFor(int length, int hash) {
         return (length - 1) & hash;
     }
 
@@ -26,7 +27,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node> {
     }
 
     public boolean insert(K key, V value) {
-        if ((capacity * 0.75) == size) {
+        if ((capacity * LOAD_FACTOR) == size) {
             resize();
         }
         int index = indexFor(capacity, hash(key));
@@ -35,15 +36,17 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node> {
             size++;
             modCount++;
             return true;
-        } else if (Objects.nonNull(table[index]) && table[index].getKey().equals(key)) {
-            return false;
         }
         return false;
     }
 
     public <V> V get(K key) {
+        V result = null;
         int index = indexFor(capacity, hash(key));
-        return (V) table[index].value;
+        if (Objects.equals(key, table[index].getKey())) {
+            result = (V) table[index].value;
+        }
+        return result;
     }
 
     public boolean delete(K key) {
@@ -51,7 +54,9 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Node> {
         if (Objects.isNull(table[index])) {
             return false;
         }
-        table[index] = null;
+        if (Objects.equals(key, table[index].getKey())) {
+            table[index] = null;
+        }
         size--;
         modCount++;
         return true;
@@ -151,18 +156,18 @@ class Main {
         System.out.println(map.insert(3, "three"));
         System.out.println(map.insert(4, "four"));
 
-           Iterator<SimpleMap.Node> it = map.iterator();
+        Iterator<SimpleMap.Node> it = map.iterator();
         while (it.hasNext()) {
-                System.out.println(it.next());
-                }
+            System.out.println(it.next());
+        }
 
-                map.delete(2);
-                map.insert(5, "fdsfsdf");
+        map.delete(2);
+        map.insert(5, "fdsfsdf");
 
 
-                Iterator<SimpleMap.Node> it1 = map.iterator();
+        Iterator<SimpleMap.Node> it1 = map.iterator();
         while (it1.hasNext()) {
-        System.out.println(it1.next());
+            System.out.println(it1.next());
         }
-        }
-        }
+    }
+}
