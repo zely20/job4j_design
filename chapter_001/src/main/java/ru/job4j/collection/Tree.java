@@ -24,6 +24,27 @@ class Tree<E> implements SimpleTree<E> {
         return rsl;
     }
 
+    private boolean recursive(List<Node<E>> nodes) {
+        if(nodes.size() > 2) {
+            return false;
+        }
+        for (Node<E> val : nodes) {
+            return recursive(val.children);
+        }
+        return true;
+    }
+
+    public boolean isBinary() {
+        List<Node<E>> temp = root.children;
+        return recursive(temp);
+/*        for (Node<E> val : temp) {
+            if(val.children.size() >2) {
+                return false;
+            }
+        }*/
+    }
+
+
     @Override
     public Optional<Node<E>> findBy(E value) {
         Optional<Node<E>> rsl = Optional.empty();
