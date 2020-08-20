@@ -7,7 +7,7 @@ public class User {
     private int children;
     private Calendar birthday;
 
-    public User(){
+    public User(int i, String sasha){
 
     }
 
