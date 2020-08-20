@@ -13,9 +13,7 @@ class Tree<E> implements SimpleTree<E> {
         boolean rsl = false;
         Optional<Node<E>> temp = findBy(parent);
         if (temp.isPresent()) {
-            Optional<Node<E>> tempChild = temp.get().children.stream()
-                    .filter(val -> val.equals(child))
-                    .findFirst();
+            Optional<Node<E>> tempChild = findBy(child);
             if(tempChild.isEmpty()){
                 temp.get().children.add(new Node<>(child));
                 return true;
