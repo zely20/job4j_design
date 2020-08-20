@@ -22,7 +22,7 @@ class Tree<E> implements SimpleTree<E> {
         return rsl;
     }
 
-    private boolean recursive(List<Node<E>> nodes) {
+/*    private boolean recursive(List<Node<E>> nodes) {
         if(nodes.size() > 2) {
             return false;
         }
@@ -30,16 +30,22 @@ class Tree<E> implements SimpleTree<E> {
             return recursive(val.children);
         }
         return true;
-    }
+    }*/
 
     public boolean isBinary() {
-        List<Node<E>> temp = root.children;
-        return recursive(temp);
-/*        for (Node<E> val : temp) {
-            if(val.children.size() >2) {
+        /*List<Node<E>> temp = root.children;
+        return recursive(temp);*/
+        boolean rsl = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.children.size() > 2) {
                 return false;
             }
-        }*/
+            data.addAll(el.children);
+        }
+        return rsl;
     }
 
 
