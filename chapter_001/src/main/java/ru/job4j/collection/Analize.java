@@ -1,11 +1,32 @@
 package ru.job4j.collection;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Analize {
 
-    public Info diff(List<User> previous, List<User> current) {
+    public Info diff(List<User> previous, List<User> current){
+        Info info = new Info();
+        Map<Integer, String> temp = new HashMap<>();
+        temp = current.stream()
+                .collect(Collectors.toMap(el -> new Integer(el.getId()), el-> el.getName()));
+        for (User us :
+                previous) {
+            if(temp.containsKey(us.id)){
+                if(!temp.get(us.id).equals(us.name)){
+                    info.changed++;
+                }
+            } else {
+                info.deleted++;
+            }
+        }
+        info.added = current.size() + info.deleted - previous.size();
+        return info;
+    }
+    /*public Info diff(List<User> previous, List<User> current) {
         int c = previous.size() - current.size();
         Info info = new Info();
         if (c < 0) {
@@ -27,7 +48,7 @@ public class Analize {
                     .anyMatch(u -> u.id == us.id && !Objects.equals(u.name, us.name)) ? 1 : 0;
         }
         return result;
-    }
+    }*/
 
     public static class User {
         int id;
@@ -36,6 +57,14 @@ public class Analize {
         public User(int id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getId() {
+            return id;
         }
 
         @Override
