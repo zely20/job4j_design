@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Config {
     private final String path;
-    private final Map<String, String> values = new HashMap<String, String>();
+    private Map<String, String> values = new HashMap<String, String>();
 
     public Config(final String path) {
         this.path = path;
@@ -16,15 +17,11 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             List<String> temp;
-            temp = read.lines().filter(el -> !el.isEmpty())
-                    .collect(Collectors.toList());
-            for (String str : temp) {
-                String[] s = str.split("=");
-                values.put(s[0], s[1]);
-            }
-            for (Map.Entry<String,String> k : values.entrySet()){
-                System.out.println(k.getKey() + " " + k.getValue());
-            }
+
+            values = read.lines()
+                    .filter(el -> !el.isEmpty())
+                    .map(line -> line.split("="))
+                    .collect(Collectors.toMap(a -> a[0], a -> a[1]));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,6 +43,7 @@ public class Config {
     }
 
     public static void main(String[] args) {
-       System.out.println(new Config("app.properties"));
+            new Config("app.properties").load();
+        System.out.println(new Config("app.properties"));
     }
 }
