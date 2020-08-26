@@ -2,9 +2,11 @@ package ru.job4j.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Config {
     private final String path;
@@ -17,9 +19,9 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             List<String> temp;
-
             values = read.lines()
                     .filter(el -> !el.isEmpty())
+                    .filter(el -> el.indexOf("#") < 0)
                     .map(line -> line.split("="))
                     .collect(Collectors.toMap(a -> a[0], a -> a[1]));
         } catch (Exception e) {
@@ -43,7 +45,10 @@ public class Config {
     }
 
     public static void main(String[] args) {
-            new Config("app.properties").load();
-            System.out.println(new Config("app.properties"));
+        Config cf = new Config("app.properties");
+        cf.load();
+        System.out.println(cf.value("hibernate.connection.driver_class"));
+           //new Config("app.properties").load();
+           // System.out.println(new Config("app.properties"));
     }
 }
