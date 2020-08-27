@@ -15,16 +15,13 @@ public class Analizy {
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             List<String> lines;
             boolean isOff = false;
-            lines = read.lines()
-                    .filter(el -> !el.isEmpty())
-                    .flatMap(line -> Stream.of(line.split("=")))
-                    .collect(Collectors.toList());
-            for (String str : lines) {
+            while (read.ready()){
+                String str = read.readLine();
                 if (!isOff && (str.indexOf("400") != -1 || str.indexOf("500") != -1)) {
                     result.add(str.split("\\s+")[1] + ";");
                     isOff = true;
                 } else if (isOff && (str.indexOf("200") != -1 || str.indexOf("300") != -1)) {
-                    result.add(str.split("\\s+")[1]);
+                    result.add(str.split("\\s+")[1] + System.lineSeparator());
                     isOff = false;
                 }
             }
@@ -35,7 +32,6 @@ public class Analizy {
             for (String str : result) {
                 out.write(str);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
