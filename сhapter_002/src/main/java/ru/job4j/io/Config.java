@@ -18,7 +18,6 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            List<String> temp;
             values = read.lines()
                     .filter(el -> !el.isEmpty())
                     .filter(el -> el.indexOf("#") < 0)
