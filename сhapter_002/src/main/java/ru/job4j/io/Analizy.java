@@ -13,7 +13,6 @@ public class Analizy {
     public void unavailable(String source, String target) {
         List<String> result = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            List<String> lines;
             boolean isOff = false;
             while (read.ready()){
                 String str = read.readLine();
