@@ -6,15 +6,13 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Analizy {
     public void unavailable(String source, String target) {
         List<String> result = new ArrayList<>();
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             boolean isOff = false;
-            while (read.ready()){
+            while (read.ready()) {
                 String str = read.readLine();
                 if (!isOff && (str.indexOf("400") != -1 || str.indexOf("500") != -1)) {
                     result.add(str.split("\\s+")[1] + ";");
