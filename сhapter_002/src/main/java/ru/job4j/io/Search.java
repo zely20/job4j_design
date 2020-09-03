@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get("C:\\projects\\job4j_design");
+        Path start = Paths.get("C:\\project\\job4j_design");
         search(start, "js").forEach(System.out::println);
     }
 
