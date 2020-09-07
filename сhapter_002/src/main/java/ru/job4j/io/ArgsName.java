@@ -16,6 +16,7 @@ public class ArgsName {
     private void parse(String[] args) {
         values = Arrays.stream(args)
                 .map(line -> line.split("="))
+                .filter(array -> array.length == 2)
                 .collect(Collectors.toMap(a -> a[0].substring(1), a -> a[1]));
     }
 
