@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class ArgZip {
 
@@ -12,7 +11,7 @@ public class ArgZip {
     }
 
     public boolean valid() {
-        if (args.length < 3)  {
+        if (args.length < 3) {
             System.out.println("Не хватает всех параметров");
             return false;
         }
@@ -20,20 +19,22 @@ public class ArgZip {
     }
 
     public String directory() {
-
-            return (Arrays.stream(args)
-                    .filter(value -> value.startsWith("-d"))
-                    .map(line -> line.split("="))
-                    .map(word -> word[1])
-                    .findFirst().get());
-
+        return findValue("-d");
     }
 
     public String exclude() {
-        return null;
+        return findValue("-e");
     }
 
     public String output() {
-        return null;
+        return findValue("-o");
+    }
+
+    private String findValue(String val) {
+        return (Arrays.stream(args)
+                .filter(value -> value.startsWith(val))
+                .map(line -> line.split("="))
+                .map(word -> word[1])
+                .findFirst().get());
     }
 }

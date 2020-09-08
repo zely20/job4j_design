@@ -26,9 +26,11 @@ public class Zip {
     public static void main(String[] args) {
         ArgZip zip1 = new ArgZip(args);
         System.out.println(zip1.directory());
-        new Zip().packSingleFile(
+        System.out.println(zip1.output());
+        System.out.println(zip1.exclude());
+       /* new Zip().packSingleFile(
                 new File("pom.xml"),
                 new File("pom.zip")
-        );
+        );*/
     }
 }
