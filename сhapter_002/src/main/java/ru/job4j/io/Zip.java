@@ -41,10 +41,10 @@ public class Zip {
         Files.walkFileTree(Paths.get(zip1.directory()), searcher);
         List<File> files = searcher.paths
                 .stream()
-                .map(path -> path.toFile())
+                .map(Path::toFile)
                 .collect(Collectors.toList());
         new Zip().packFiles(files, new File(zip1.output()));
-        for (Path st : searcher.paths){
+        for (Path st : searcher.paths) {
             System.out.println(st.toFile().getAbsolutePath());
         }
     }
