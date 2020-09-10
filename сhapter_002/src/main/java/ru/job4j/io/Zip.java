@@ -35,9 +35,13 @@ public class Zip {
         }
     }
 
+    public static boolean endString(Path path, String str) {
+        return path.toFile().getName().endsWith(str);
+    }
+
     public static void main(String[] args) throws IOException {
         ArgZip zip1 = new ArgZip(args);
-        SearchFiles searcher = new SearchFiles(p -> !p.toFile().getName().endsWith(zip1.exclude()));
+        SearchFiles searcher = new SearchFiles(p ->endString(p,zip1.exclude()));
         Files.walkFileTree(Paths.get(zip1.directory()), searcher);
         List<File> files = searcher.paths
                 .stream()

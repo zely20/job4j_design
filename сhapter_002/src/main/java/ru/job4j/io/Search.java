@@ -8,11 +8,16 @@ import java.util.List;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
+
+        RepeatFile rep = new RepeatFile();
+        Path start = Paths.get("C:/project/job4j_design");
+        Files.walkFileTree(start, rep);
+        rep.list.stream().forEach(System.out::println);
+        /*if (args.length == 0) {
             throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
         }
         Path start = Paths.get(args[0]);
-        search(start, args[1]).forEach(System.out::println);
+        search(start, args[1]).forEach(System.out::println);*/
     }
 
     public static List<Path> search(Path root, String ext) throws IOException {
