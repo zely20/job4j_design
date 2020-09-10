@@ -4,7 +4,11 @@ import java.io.*;
 import java.util.*;
 
 public class Chat {
-    Map<Integer, String> randomText = new HashMap<>();
+    private final static String STOP = "стоп";
+    private final static String OFF = "завершить";
+    private final static String CONTINUE = "продолжить";
+    private Map<Integer, String> randomText = new HashMap<>();
+    private List<String> logList = new LinkedList<>();
 
     public void loadText() {
         try (BufferedReader read = new BufferedReader(new FileReader("text.txt"))) {
@@ -17,45 +21,52 @@ public class Chat {
         }
     }
 
-    public void save(String log, String file) {
+    public void save(String file) {
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
                         new FileOutputStream(file, true)
                 ))) {
-            out.write(log + System.lineSeparator());
+
+            out.write(String.valueOf(logList));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
+    public void start() {
         boolean isWork = true;
         boolean isStop = false;
         String inText = null;
-        Chat chat = new Chat();
-        chat.loadText();
+        loadText();
         System.out.println("С вами говорит Бот");
         while (isWork) {
-            int a = (int) ( Math.random() * 4 );
+            int a = (int) ( Math.random() * randomText.keySet().size() );
             Scanner in = new Scanner(System.in);
-                inText = in.nextLine();
-            if(inText.equals("стоп")) {
+            inText = in.nextLine();
+            if(inText.equals(STOP)) {
                 System.out.println("Чат остановлен!!!");
-                chat.save(inText, "logchat.txt");
+                logList.add(inText);
                 isStop = true;
-            } else  if(inText.equals("закончить")){
-                chat.save(inText, "logchat.txt");
+            } else  if(inText.equals(OFF)){
+                logList.add(inText);
+                save("log.txt");
                 System.out.println("Чат завершен!");
                 isWork = false;
             }
             if(!isStop && isWork) {
-                System.out.println(chat.randomText.get(a));
+                System.out.println(randomText.get(a));
             }
-            if(inText.equals("продолжить")){
+            if(inText.equals(CONTINUE)){
                 System.out.println("Продолжаем!!!");
-                chat.save(inText, "logchat.txt");
+                logList.add(inText);
                 isStop = false;
             }
         }
+
+    }
+
+    public static void main(String[] args) {
+        Chat chat = new Chat();
+        chat.start();
     }
 }
