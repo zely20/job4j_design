@@ -9,9 +9,16 @@ public class Chat {
     private final static String CONTINUE = "продолжить";
     private Map<Integer, String> randomText = new HashMap<>();
     private List<String> logList = new LinkedList<>();
+    private String source;
+    private String logFile;
+
+    public Chat(String source, String logFile) {
+        this.source = source;
+        this.logFile = logFile;
+    }
 
     public void loadText() {
-        try (BufferedReader read = new BufferedReader(new FileReader("text.txt"))) {
+        try (BufferedReader read = new BufferedReader(new FileReader(this.source))) {
             int count = 0;
             while (read.ready()) {
                 randomText.put(count++, read.readLine());
@@ -21,10 +28,10 @@ public class Chat {
         }
     }
 
-    public void save(String file) {
+    public void save() {
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
-                        new FileOutputStream(file, true)
+                        new FileOutputStream(this.logFile, true)
                 ))) {
 
             out.write(String.valueOf(logList));
@@ -49,7 +56,7 @@ public class Chat {
                 isStop = true;
             } else  if(inText.equals(OFF)){
                 logList.add(inText);
-                save("log.txt");
+                save();
                 System.out.println("Чат завершен!");
                 isWork = false;
             }
@@ -66,7 +73,7 @@ public class Chat {
     }
 
     public static void main(String[] args) {
-        Chat chat = new Chat();
+        Chat chat = new Chat("text.txt","log.txt");
         chat.start();
     }
 }
