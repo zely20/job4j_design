@@ -1,5 +1,9 @@
 package ru.job4j.socket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.job4j.logger.UsageLog4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +13,8 @@ import java.net.Socket;
 import java.util.Arrays;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
+    public static void main(String[] args) {
         boolean isBye = false;
         String result = "";
         try (ServerSocket server = new ServerSocket(9000)) {
@@ -39,6 +44,8 @@ public class EchoServer {
                     out.write(result.getBytes());
                 }
             }
+        } catch (IOException e) {
+            LOG.error("Exception in log", e);
         }
     }
 }
