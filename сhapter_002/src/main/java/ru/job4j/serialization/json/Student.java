@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class Student {
-    private int age = 0;
+    private int age;
     private String firstName;
     private String secondName;
     private boolean isStudy;
