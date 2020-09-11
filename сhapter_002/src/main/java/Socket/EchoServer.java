@@ -6,10 +6,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class EchoServer {
     public static void main(String[] args) throws IOException {
         boolean isBye = false;
+        String result = "";
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!isBye) {
                 Socket socket = server.accept();
@@ -17,21 +19,24 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
-
                     while (!(str = in.readLine()).isEmpty()) {
                         if (str != null) {
-                            System.out.println(str);
-                            if (str.contains("Bye")) {
+                            if(str.contains("?msg")){
+                               result = Arrays.stream(str.split(" "))
+                                        .filter(word -> word.contains("="))
+                                        .map(line -> line.split("=")[1])
+                                        .findFirst()
+                                        .get();
+                                System.out.println(str);
+                            }
+                           // System.out.println(str);
+                            if (result.equals("Bye")) {
                                 isBye = true;
                             }
                         }
                     }
-
-                    if (isBye) {
-                        out.write(("Bye-Bye\"\r\n\\").getBytes());
-                    }
-                    out.write(("HTTP/1.1 200 OK\"\r\n\\").getBytes());
-                    out.write("Hello, dear friend.".getBytes());
+                    out.write(("HTTP/1.1 200 OK\r\n\r\n").getBytes());
+                    out.write(result.getBytes());
                 }
             }
         }
