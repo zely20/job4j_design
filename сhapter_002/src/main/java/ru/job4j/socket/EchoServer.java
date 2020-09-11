@@ -1,4 +1,4 @@
-package Socket;
+package ru.job4j.socket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
