@@ -31,10 +31,10 @@ public class Chat {
     public void save() {
         try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
-                        new FileOutputStream(this.logFile, true)
+                        new FileOutputStream(this.logFile)
                 ))) {
-
-            out.write(String.valueOf(logList));
+            logList.stream()
+                    .forEach(line ->out.write(line + System.lineSeparator()));
         } catch (Exception e) {
             e.printStackTrace();
         }
