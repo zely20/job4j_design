@@ -9,25 +9,29 @@ import java.net.Socket;
 
 public class EchoServer {
     public static void main(String[] args) throws IOException {
+        boolean isBye = false;
         try (ServerSocket server = new ServerSocket(9000)) {
-            while (true) {
+            while (!isBye) {
                 Socket socket = server.accept();
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
-                    boolean isBye = false;
+
                     while (!(str = in.readLine()).isEmpty()) {
-                        System.out.println(str);
-                        if (str.contains("Bye")) {
-                            isBye = true;
+                        if (str != null) {
+                            System.out.println(str);
+                            if (str.contains("Bye")) {
+                                isBye = true;
+                            }
                         }
                     }
+
                     if (isBye) {
-                        out.write(("HTTP/1.1 200 OK Server stop!!!\"\r\n\\").getBytes());
-                        break;
+                        out.write(("Bye-Bye\"\r\n\\").getBytes());
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
+                    out.write(("HTTP/1.1 200 OK\"\r\n\\").getBytes());
+                    out.write("Hello, dear friend.".getBytes());
                 }
             }
         }

@@ -3,7 +3,6 @@ package ru.job4j.io;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
@@ -35,20 +34,25 @@ public class Zip {
         }
     }
 
+    private List<Path> findFiles(ArgZip argZip) throws IOException {
+        SearchFiles searcher = new SearchFiles(p ->endString(p,argZip.exclude()));
+        Files.walkFileTree(Path.of(argZip.directory()), searcher);
+        return searcher.paths;
+    }
+
     public static boolean endString(Path path, String str) {
         return path.toFile().getName().endsWith(str);
     }
 
     public static void main(String[] args) throws IOException {
-        ArgZip zip1 = new ArgZip(args);
-        SearchFiles searcher = new SearchFiles(p ->endString(p,zip1.exclude()));
-        Files.walkFileTree(Paths.get(zip1.directory()), searcher);
-        List<File> files = searcher.paths
+        ArgZip argZip = new ArgZip(args);
+        Zip zip = new Zip();
+        List<File> files = zip.findFiles(argZip)
                 .stream()
                 .map(Path::toFile)
                 .collect(Collectors.toList());
-        new Zip().packFiles(files, new File(zip1.output()));
-        for (Path st : searcher.paths) {
+        zip.packFiles(files, new File(argZip.output()));
+        for (Path st : zip.findFiles(argZip)) {
             System.out.println(st.toFile().getAbsolutePath());
         }
     }

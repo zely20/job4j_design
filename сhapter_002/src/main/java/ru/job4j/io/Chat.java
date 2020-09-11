@@ -36,7 +36,7 @@ public class Chat {
     public void start() {
         boolean isWork = true;
         boolean isStop = false;
-        String inText = null;
+        String inText;
         loadText();
         System.out.println("С вами говорит Бот");
         while (isWork) {
