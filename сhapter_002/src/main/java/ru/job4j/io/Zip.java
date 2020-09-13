@@ -35,7 +35,7 @@ public class Zip {
     }
 
     private List<Path> findFiles(ArgZip argZip) throws IOException {
-        SearchFiles searcher = new SearchFiles(p ->endString(p,argZip.exclude()));
+        SearchFiles searcher = new SearchFiles(p ->!endString(p,argZip.exclude()));
         Files.walkFileTree(Path.of(argZip.directory()), searcher);
         return searcher.paths;
     }
