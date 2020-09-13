@@ -10,7 +10,7 @@ public class Search {
     public static void main(String[] args) throws IOException {
 
         RepeatFile rep = new RepeatFile();
-        Path start = Paths.get("C:/project/job4j_design");
+        Path start = Paths.get("C:\\projects\\job4j_design");
         Files.walkFileTree(start, rep);
         rep.list.stream().forEach(System.out::println);
         /*if (args.length == 0) {

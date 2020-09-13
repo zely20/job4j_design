@@ -13,7 +13,7 @@ import java.util.Map;
 public class RepeatFile implements FileVisitor<Path> {
 
     private Map<Long, List<Path>> map = new HashMap<>();
-    private List<Path> list = new LinkedList<>();
+    public List<Path> list = new LinkedList<>();
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
@@ -22,7 +22,7 @@ public class RepeatFile implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        long id = file.toFile().length();
+        Long id = file.toFile().length();
         if (map.containsKey(id)) {
             List<Path> tempFromMap = map.get(id);
             for (Path path : tempFromMap) {
