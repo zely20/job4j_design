@@ -4,19 +4,25 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 public class Student {
     private int age;
     private String firstName;
     private String secondName;
     private boolean isStudy;
     private int course;
+    private Car car;
+    private String[]  disciplines;
 
-    public Student(int age, String firstName, String secondName, boolean isStudy, int course) {
+    public Student(int age, String firstName, String secondName, boolean isStudy, int course, Car car) {
         this.age = age;
         this.firstName = firstName;
         this.secondName = secondName;
         this.isStudy = isStudy;
         this.course = course;
+        this.car = car;
+        disciplines = new String[]{"language", "Programing"};
     }
 
     public int getAge() {
@@ -39,6 +45,13 @@ public class Student {
         return course;
     }
 
+    public Car getCar() {
+        return car;
+    }
+    public String[] getDisciplines(){
+        return disciplines;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -47,12 +60,15 @@ public class Student {
                 ", secondName='" + secondName + '\'' +
                 ", isStudy=" + isStudy +
                 ", course=" + course +
+                ", car=" + car +
+                ", disciplines=" + Arrays.toString(disciplines) +
                 '}';
     }
 
     public static void main(String[] args) {
-        final Student student = new Student(25,"Zelenko","Alex", true,1);
-        JSONObject jsonStudent = new JSONObject();
+        final Student student = new Student(25,"Zelenko","Alex", true,1,
+                new Car("Ferrari", "Black"));
+       /* JSONObject jsonStudent = new JSONObject();
         jsonStudent.put("age", student.getAge());
         jsonStudent.put("firstName", student.getFirstName());
         jsonStudent.put("secondName", student.getSecondName());
@@ -60,8 +76,9 @@ public class Student {
         jsonStudent.put("course", student.getCourse());
         System.out.println(jsonStudent);
 
-        System.out.println(new JSONObject(student).toString());
-        /*final Gson gson = new GsonBuilder().create();
+        System.out.println(new JSONObject(student).toString());*/
+
+        final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(student));
 
         final String jSon = "{" +
@@ -69,8 +86,28 @@ public class Student {
                 "\"firstName\":\"Zelenko\"," +
                 "\"secondName\":\"Alex\"," +
                 "\"isStudy\":true," +
-                "\"course\":1}";
+                "\"course\":1," +
+                "\"car\":" +
+                "{\"model\":\"Ferrari\",\"color\":\"Black\"}," +
+                "\"disciplines\":[\"language\",\"Programing\"]}";
         final Student student2 = gson.fromJson(jSon,Student.class);
-        System.out.println(student2);*/
+        System.out.println(student2);
+    }
+    public static class Car {
+        private String model;
+        private String color;
+
+        public Car(String model, String color) {
+            this.model = model;
+            this.color = color;
+        }
+
+        @Override
+        public String toString() {
+            return "Car{" +
+                    "model='" + model + '\'' +
+                    ", color='" + color + '\'' +
+                    '}';
+        }
     }
 }
