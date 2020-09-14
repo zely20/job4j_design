@@ -1,19 +1,17 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RepeatFile implements FileVisitor<Path> {
 
-    private Map<Long, List<Path>> map = new HashMap<>();
-    public List<Path> list = new LinkedList<>();
+    private Set<Path> metFiles = new HashSet<>();
+    public List<Pair> list = new LinkedList<>();
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
@@ -22,22 +20,12 @@ public class RepeatFile implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        Long id = file.toFile().length();
-        if (map.containsKey(id)) {
-            List<Path> tempFromMap = map.get(id);
-            for (Path path : tempFromMap) {
-                if (path.toFile().getName().equals(file.toFile().getName())) {
-                    list.add(file);
-                } else {
-                    List<Path> temp = map.get(id);
-                    temp.add(file);
-                    map.put(id, temp);
-                }
-            }
+        File f = file.toFile();
+        Pair pair = new Pair(f.length(), f.getName());
+        if (metFiles.contains(pair)){
+            list.add(pair);
         } else {
-            List<Path> inMap = new LinkedList<>();
-            inMap.add(file);
-            map.put(file.toFile().length(), inMap);
+            metFiles.add(file);
         }
         return FileVisitResult.CONTINUE;
     }
