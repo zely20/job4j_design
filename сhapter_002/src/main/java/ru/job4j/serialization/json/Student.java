@@ -68,17 +68,19 @@ public class Student {
     public static void main(String[] args) {
         final Student student = new Student(25,"Zelenko","Alex", true,1,
                 new Car("Ferrari", "Black"));
-       /* JSONObject jsonStudent = new JSONObject();
+        JSONObject jsonStudent = new JSONObject();
         jsonStudent.put("age", student.getAge());
         jsonStudent.put("firstName", student.getFirstName());
         jsonStudent.put("secondName", student.getSecondName());
         jsonStudent.put("isStudy", student.isStudy);
         jsonStudent.put("course", student.getCourse());
+        jsonStudent.put("car", student.getCar());
+        jsonStudent.put("disciplines", student.getDisciplines());
         System.out.println(jsonStudent);
 
-        System.out.println(new JSONObject(student).toString());*/
+        System.out.println(new JSONObject(student).toString());
 
-        final Gson gson = new GsonBuilder().create();
+        /*final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(student));
 
         final String jSon = "{" +
@@ -91,7 +93,7 @@ public class Student {
                 "{\"model\":\"Ferrari\",\"color\":\"Black\"}," +
                 "\"disciplines\":[\"language\",\"Programing\"]}";
         final Student student2 = gson.fromJson(jSon,Student.class);
-        System.out.println(student2);
+        System.out.println(student2);*/
     }
     public static class Car {
         private String model;
