@@ -2,6 +2,7 @@ package ru.job4j.serialization.json;
 import org.json.JSONPropertyIgnore;
 
 public class A {
+
     private B b;
 
     @JSONPropertyIgnore
