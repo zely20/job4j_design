@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Cache<K,V> {
 
-    private HashMap<K, SoftReference<V>> cache;
+    private HashMap<K, SoftReference<V>> cache = new HashMap<>();
 
     public HashMap<K, SoftReference<V>> getCache() {
         return cache;

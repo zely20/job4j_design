@@ -13,13 +13,14 @@ public class SoftRef {
     public static void main(String[] args) throws IOException {
         String nameFile = "";
         HashMap<String, SoftReference> cache = new HashMap<>();
+        Cache<String, String> cache1 = new Cache<>();
         Scanner in = new Scanner(System.in);
         while (!nameFile.equals("exit")) {
             System.out.println("Enter name file for check cache");
             nameFile = in.nextLine();
 
-            if (cache.containsKey(nameFile)) {
-                System.out.printf("Data from cache file name %s: %s",nameFile ,cache.get(nameFile).get());
+            if (cache1.getCache().containsKey(nameFile)) {
+                System.out.printf("Data from cache file name %s: %s",nameFile ,cache1.getCache().get(nameFile).get());
                 System.out.println();
             } else {
 
@@ -28,8 +29,8 @@ public class SoftRef {
                 while (read.ready()) {
                     builder.append(read.readLine());
                 }
-                SoftReference reference = new SoftReference(builder);
-                cache.put(nameFile,reference);
+
+                cache1.setCache(nameFile, builder.toString());
             }
         }
     }
