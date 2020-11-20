@@ -1,18 +1,9 @@
 package ru.job4j.gc;
 
-import java.lang.ref.SoftReference;
-import java.util.HashMap;
+import java.io.IOException;
 
-public class Cache<K,V> {
+public interface Cache<K,V> {
 
-    private HashMap<K, SoftReference<V>> cache = new HashMap<>();
-
-    public HashMap<K, SoftReference<V>> getCache() {
-        return cache;
-    }
-
-    public void setCache(K key, V value) {
-        SoftReference<V> softReference = new SoftReference<V>(value);
-        this.cache.put(key, softReference);
-    }
+    V get (K key) throws IOException;
+    void put (K key, V value);
 }

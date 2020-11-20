@@ -1,7 +1,6 @@
 package ru.job4j.gc;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
@@ -13,7 +12,7 @@ public class SoftRef {
     public static void main(String[] args) throws IOException {
         String nameFile = "";
         HashMap<String, SoftReference> cache = new HashMap<>();
-        Cache<String, String> cache1 = new Cache<>();
+        FileCache<String, String> cache1 = new FileCache<>();
         Scanner in = new Scanner(System.in);
         while (!nameFile.equals("exit")) {
             System.out.println("Enter name file for check cache");
