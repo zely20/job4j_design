@@ -2,47 +2,27 @@ package ru.job4j.OOD;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.IntPredicate;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        T valueOne = null;
-        T valueTwo = null;
-        int res;
-        for (int i = 0; i < value.size()-1; i++){
-            if (i == 0) {
-                valueOne = value.get(i);
-                valueTwo = value.get(i+1);
-            }
-            res = comparator.compare(valueOne, valueTwo);
-            if (res < 0 || res == 0) {
-                valueTwo = value.get(i+1);
-            }
-            if (res > 0) {
-                valueOne = valueTwo;
-                valueTwo = value.get(i+1);
-            }
-        }
-        return valueOne;
+        return find(value, comparator, a -> a < 0);
     }
 
     public <T> T min(List<T> value, Comparator<T> comparator) {
-        T valueOne = null;
-        T valueTwo = null;
-        int res;
-        for (int i = 0; i < value.size() - 1; i++) {
-            if (i == 0) {
-                valueOne = value.get(i);
-                valueTwo = value.get(i + 1);
-            }
-            res = comparator.compare(valueTwo, valueOne);
-            if (res < 0 || res == 0) {
-                valueTwo = value.get(i + 1);
-            }
-            if (res > 0) {
-                valueOne = valueTwo;
-                valueTwo = value.get(i + 1);
+        return find(value, comparator, a -> a > 0);
+    }
+
+    private <T> T find(List<T> value, Comparator<T> comparator, IntPredicate predicate) {
+        if (value.isEmpty()) {
+            return null;
+        }
+        T v = value.get(0);
+        for (T t : value) {
+            if (predicate.test(comparator.compare(v, t))) {
+                v = t;
             }
         }
-        return valueOne;
+        return v;
     }
 }
