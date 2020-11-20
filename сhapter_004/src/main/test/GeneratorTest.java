@@ -1,5 +1,5 @@
 import org.junit.Test;
-//import ru.job4j.OOD.tdd.Generator;
+import ru.job4j.OOD.tdd.Generator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 public class GeneratorTest {
 
-/*    @Test
+    @Test
     public void produce() {
         Generator generator = new GeneratorImpl();
         Map<String,String> map = new HashMap<>();
@@ -20,8 +20,8 @@ public class GeneratorTest {
         assertThat(result, is("I am a Petr Arsentev, Who are you?"));
     }
 
-    @Test(expected = StringKeyNoException.class)
-    public void exceptionTest() {
+    @Test(expected = IllegalArgumentException.class)
+    public void exceptionOneTest() {
         Generator generator = new GeneratorImpl();
         Map<String,String> map = new HashMap<>();
         map.put("name", "Petr Arsentev");
@@ -30,8 +30,8 @@ public class GeneratorTest {
         String result = generator.produce(input, map);
     }
 
-    @Test(expected = MapKeyNoException.class)
-    public void exceptionTest() {
+    @Test(expected = IllegalArgumentException.class)
+    public void exceptionTwoTest() {
         Generator generator = new GeneratorImpl();
         Map<String,String> map = new HashMap<>();
         map.put("name", "Petr Arsentev");
@@ -39,6 +39,6 @@ public class GeneratorTest {
         map.put("address", "//////");
         String input = "I am a ${name}, Who are ${subject}?";
         String result = generator.produce(input, map);
-    }*/
+    }
 
 }
