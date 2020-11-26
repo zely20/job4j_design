@@ -13,13 +13,11 @@ public class FileCache implements Cache<String, String>{
     public String get(String key) throws IOException {
         String data = null;
         if (cache.containsKey(key)) {
-            if (cache.get(key) != null) {
-                return cache.get(key).get();
-            } else {
+            if (cache.get(key) == null) {
                 data = readFile(key);
                 put(key, data);
-                return cache.get(key).get();
             }
+            return cache.get(key).get();
         } else {
             data = readFile(key);
             put(key, data);
