@@ -11,14 +11,17 @@ public class FileCache implements Cache<String, String>{
     private HashMap<String, SoftReference<String>> cache = new HashMap<>();
 
     public String get(String key) throws IOException {
-        if(cache.get(key) == null) {
+        if (cache.containsKey(key)) {
+            if (cache.get(key) != null) {
+                return cache.get(key).get();
+            }
+        } else {
             StringBuilder builder = new StringBuilder();
             BufferedReader read = new BufferedReader(new FileReader(key));
             while (read.ready()) {
                 builder.append(read.readLine());
             }
             put(key, builder.toString());
-            return builder.toString();
         }
         return cache.get(key).get();
     }
