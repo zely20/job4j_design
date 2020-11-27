@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class HREngine {
+public class HREngine implements Report<Employee>{
 
     private Store store;
 

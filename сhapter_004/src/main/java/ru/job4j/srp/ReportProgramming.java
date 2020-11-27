@@ -2,7 +2,7 @@ package ru.job4j.srp;
 
 import java.util.function.Predicate;
 
-public class ReportProgramming {
+public class ReportProgramming implements Report<Employee> {
 
     private Store store;
 
