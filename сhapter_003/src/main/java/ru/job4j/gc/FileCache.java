@@ -17,7 +17,7 @@ public class FileCache implements Cache<String, String>{
                 data = readFile(key);
                 put(key, data);
             }
-            return cache.get(key).get();
+            return data;
         } else {
             data = readFile(key);
             put(key, data);
