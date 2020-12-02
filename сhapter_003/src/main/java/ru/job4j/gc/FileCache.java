@@ -11,18 +11,15 @@ public class FileCache implements Cache<String, String>{
     private HashMap<String, SoftReference<String>> cache = new HashMap<>();
 
     public String get(String key) throws IOException {
-        String data = null;
+        String data = "";
         if (cache.containsKey(key)) {
-            if (cache.get(key) == null) {
-                data = readFile(key);
-                put(key, data);
-            }
-            return data;
-        } else {
-            data = readFile(key);
-            put(key, data);
+            data = cache.get(key).get();
         }
-        return cache.get(key).get();
+        if (data == null || data.length() == 0 || !cache.containsKey(key)) {
+            data = readFile(key);
+            cache.put(key, new SoftReference<>(data));
+        }
+        return data;
     }
 
     public void put(String key, String value) {
