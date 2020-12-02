@@ -10,6 +10,7 @@ public class ReportProgramming implements Report<Employee> {
         this.store = store;
     }
 
+    @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
         text.append("<h1>Name; Hired; Fired; Salary;</h1>")
