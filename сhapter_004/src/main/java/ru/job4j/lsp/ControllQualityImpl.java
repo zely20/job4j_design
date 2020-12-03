@@ -2,10 +2,10 @@ package ru.job4j.lsp;
 
 import java.util.Date;
 
-public class ControllQualityImpl implements ControllQualityStrategy {
+public class ControllQualityImpl {
 
-    @Override
-    public void distribute(Food food, Shop shop, Warehouse warehouse, Trash trash ) {
+    /*@Override
+    public void distribute(Food food) {
         long remainderDate = food.expaireDate.getTime() - new Date().getTime();
         long commonExpaireDate = food.expaireDate.getTime() - food.createDate.getTime();
         if (remainderDate <= 0) {
@@ -19,5 +19,5 @@ public class ControllQualityImpl implements ControllQualityStrategy {
         } else {
             trash.addFood(food);
         }
-    }
+    }*/
 }

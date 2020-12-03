@@ -1,5 +1,6 @@
 package ru.job4j.lsp;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,5 +13,21 @@ public class Trash implements Store{
         if(food != null) {
             items.add(food);
         }
+    }
+
+    @Override
+    public boolean accept(Food food) {
+        long remainderDate = food.expaireDate.getTime() - new Date().getTime();
+        long commonExpaireDate = food.expaireDate.getTime() - food.createDate.getTime();
+        if (remainderDate <= 0) {
+            System.out.println("Срок годности вышел");
+            return false;
+        }
+        long percent = remainderDate*100/commonExpaireDate;
+        if(percent > 75) {
+            addFood(food);
+            return true;
+        }
+        return false;
     }
 }
