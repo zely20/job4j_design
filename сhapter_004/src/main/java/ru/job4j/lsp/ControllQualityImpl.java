@@ -14,4 +14,14 @@ public class ControllQualityImpl implements ControllQualityStrategy{
         }
 
     }
+
+    @Override
+    public void addFood(Food food) {
+        for (Store store : mapStore){
+            if(store.accept(food)){
+                store.addFood(food);
+                break;
+            }
+        }
+    }
 }
