@@ -18,7 +18,8 @@ public class Shop implements Store{
 
     @Override
     public boolean accept(Food food) {
-        long remainderDate = food.expaireDate.getTime() - new Date().getTime();
+        long currentDate = System.currentTimeMillis();
+        long remainderDate = food.expaireDate.getTime() - currentDate;
         long commonExpaireDate = food.expaireDate.getTime() - food.createDate.getTime();
         if (remainderDate <= 0) {
             System.out.println("Срок годности вышел");
@@ -30,5 +31,10 @@ public class Shop implements Store{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Set<Food> getItems() {
+        return items;
     }
 }

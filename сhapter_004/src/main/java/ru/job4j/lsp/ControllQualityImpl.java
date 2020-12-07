@@ -3,7 +3,7 @@ package ru.job4j.lsp;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ControllQualityImpl implements ControllQualityStrategy{
+public class ControllQualityImpl implements ControllQualityStrategy {
 
     private Set<Store> mapStore = new HashSet<>();
 

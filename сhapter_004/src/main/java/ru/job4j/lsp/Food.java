@@ -11,6 +11,17 @@ public class Food {
     protected Integer price;
     protected Integer disscount;
 
+    public Food() {
+    }
+
+    public Food(String name, Date expaireDate, Date createDate, Integer price, Integer disscount) {
+        this.name = name;
+        this.expaireDate = expaireDate;
+        this.createDate = createDate;
+        this.price = price;
+        this.disscount = disscount;
+    }
+
     public String getName() {
         return name;
     }
