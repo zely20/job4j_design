@@ -18,14 +18,7 @@ public class Shop implements Store{
 
     @Override
     public boolean accept(Food food) {
-        long currentDate = System.currentTimeMillis();
-        long remainderDate = food.expaireDate.getTime() - currentDate;
-        long commonExpaireDate = food.expaireDate.getTime() - food.createDate.getTime();
-        if (remainderDate <= 0) {
-            System.out.println("Срок годности вышел");
-            return false;
-        }
-        long percent = remainderDate*100/commonExpaireDate;
+        int percent = calculatePercent(food);
         if(percent < 75 && percent > 25) {
             addFood(food);
             return true;

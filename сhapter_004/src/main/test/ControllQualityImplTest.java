@@ -29,7 +29,7 @@ public class ControllQualityImplTest {
         Store shop = new Shop();
         Store trash = new Trash();
         Food milk = new Milk("Milk",
-                new Date(System.currentTimeMillis()+ 1000000), new Date(1607337640000L), 100, 20);
+                new Date(System.currentTimeMillis()+ 100000000), new Date(1607337640000L), 100, 20);
         ControllQualityStrategy controllQualityStrategy = new ControllQualityImpl();
         controllQualityStrategy.addStore(warehouse);
         controllQualityStrategy.addStore(shop);
@@ -44,7 +44,7 @@ public class ControllQualityImplTest {
         Store shop = new Shop();
         Store trash = new Trash();
         Food milk = new Milk("Milk",
-                new Date(System.currentTimeMillis()+ 10000000), new Date(1607337640000L), 100, 20);
+                new Date(System.currentTimeMillis()+ 10000000000L), new Date(1607337640000L), 100, 20);
         ControllQualityStrategy controllQualityStrategy = new ControllQualityImpl();
         controllQualityStrategy.addStore(warehouse);
         controllQualityStrategy.addStore(shop);
