@@ -6,4 +6,6 @@ public interface Parking {
 
     public boolean addVehicle(Vehicle vehicle);
     public Set<Vehicle> getVehicles();
+    public int getTrackPlace();
+    public int getCarPlace();
 }
