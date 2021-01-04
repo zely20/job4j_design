@@ -2,11 +2,7 @@ package ru.job4j.lsp.parking;
 
 public class Car implements Vehicle{
 
-    private int size;
-
-    public Car(int size) {
-        this.size = size;
-    }
+    private static int size = 1;
 
     @Override
     public int size() {
