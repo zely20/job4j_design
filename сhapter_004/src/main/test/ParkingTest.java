@@ -9,7 +9,7 @@ public class ParkingTest {
     @Test
     public void addTrackAndCar() {
         Parking parking = new ParkingImpl(1,1);
-        Vehicle car = new Car(1);
+        Vehicle car = new Car();
         Vehicle track = new Track(1);
         parking.addVehicle(car);
         parking.addVehicle(track);
@@ -22,5 +22,21 @@ public class ParkingTest {
         Vehicle track = new Track(2);
         parking.addVehicle(track);
         assertThat(parking.getVehicles().size(), is(1));
+    }
+
+    @Test
+    public void checkFreeCarPlace() {
+        Parking parking = new ParkingImpl(0,3);
+        Vehicle car = new Car();
+        parking.addVehicle(car);
+        assertThat(parking.getCarPlace(), is(2));
+    }
+
+    @Test
+    public void checkFreeCarPlaceAfterAddTrack() {
+        Parking parking = new ParkingImpl(0,5);
+        Vehicle track = new Track(2);
+        parking.addVehicle(track);
+        assertThat(parking.getCarPlace(), is(3));
     }
 }

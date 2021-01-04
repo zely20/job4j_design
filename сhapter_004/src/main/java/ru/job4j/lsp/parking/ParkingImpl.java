@@ -17,6 +17,21 @@ public class ParkingImpl implements Parking {
 
     @Override
     public boolean addVehicle(Vehicle vehicle) {
+        if(vehicle instanceof Car && carPlace > 0){
+            carPlace--;
+            vehicles.add(vehicle);
+            return true;
+        }
+        if(vehicle instanceof Track && trackPlace > 0) {
+            trackPlace--;
+            vehicles.add(vehicle);
+            return true;
+        }
+        if(vehicle instanceof Track && carPlace > vehicle.size()) {
+            carPlace = carPlace - vehicle.size();
+            vehicles.add(vehicle);
+            return true;
+        }
         return false;
     }
 
