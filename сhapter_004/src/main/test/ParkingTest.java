@@ -10,7 +10,7 @@ public class ParkingTest {
     public void addTrackAndCar() {
         Parking parking = new ParkingImpl(1,1);
         Vehicle car = new Car();
-        Vehicle track = new Track(1);
+        Vehicle track = new Track(2);
         parking.addVehicle(car);
         parking.addVehicle(track);
         assertThat(parking.getVehicles().size(), is(2));

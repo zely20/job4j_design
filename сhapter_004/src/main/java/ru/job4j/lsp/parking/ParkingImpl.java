@@ -17,7 +17,25 @@ public class ParkingImpl implements Parking {
 
     @Override
     public boolean addVehicle(Vehicle vehicle) {
-        if(vehicle instanceof Car && carPlace > 0){
+        int vehicleSize = vehicle.size();
+        if(vehicleSize == 1 && carPlace > 0 ) {
+            carPlace--;
+            vehicles.add(vehicle);
+            return true;
+        }
+
+        if(vehicleSize > 1 && trackPlace > 0) {
+            trackPlace--;
+            vehicles.add(vehicle);
+            return true;
+        }
+
+        if(vehicleSize > 1 && carPlace > vehicleSize) {
+            carPlace = carPlace - vehicleSize;
+            vehicles.add(vehicle);
+            return true;
+        }
+  /*      if(vehicle instanceof Car && carPlace > 0){
             carPlace--;
             vehicles.add(vehicle);
             return true;
@@ -31,7 +49,7 @@ public class ParkingImpl implements Parking {
             carPlace = carPlace - vehicle.size();
             vehicles.add(vehicle);
             return true;
-        }
+        }*/
         return false;
     }
 
