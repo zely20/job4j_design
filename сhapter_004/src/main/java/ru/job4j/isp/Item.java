@@ -25,7 +25,7 @@ public class Item implements Action {
         this.action = action;
     }
 
-    public List<Item> getItem() {
+    public List<Item> getItems() {
         return items;
     }
 
