@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Item implements Action {
 
-    public final String name;
-    public Action action;
-    List<Item> items;
+    private final String name;
+    private Action action;
+    private List<Item> items;
 
     public Item(String name) {
         this.name = name;
