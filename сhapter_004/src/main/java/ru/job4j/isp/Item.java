@@ -37,6 +37,11 @@ public class Item implements Action {
     }
 
     @Override
+    public String toString() {
+        return name ;
+    }
+
+    @Override
     public void event() {
         System.out.println("does something");
     }
