@@ -24,4 +24,15 @@ public class ControllQualityImpl implements ControllQualityStrategy {
             }
         }
     }
+
+    @Override
+    public void resort() {
+        for (Store store : mapStore) {
+            for (Food food : store.getItems()) {
+                Food temp = store.remove(food);
+                store.addFood(temp);
+            }
+        }
+        ;
+    }
 }

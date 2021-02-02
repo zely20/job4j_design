@@ -28,4 +28,12 @@ public class Trash implements Store{
     public Set<Food> getItems() {
         return items;
     }
+
+    @Override
+    public Food remove(Food food) {
+        if(items.remove(food)) {
+            return food;
+        }
+        return null;
+    }
 }

@@ -28,4 +28,12 @@ public class Warehouse implements Store {
         return items;
     }
 
+    @Override
+    public Food remove(Food food) {
+        if(items.remove(food)) {
+            return food;
+        }
+        return null;
+    }
+
 }

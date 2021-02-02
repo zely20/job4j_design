@@ -7,7 +7,6 @@ public class Shop implements Store{
 
     private Set<Food>items = new HashSet<>();
 
-
     @Override
     public void addFood(Food food) {
         if(food != null) {
@@ -28,5 +27,13 @@ public class Shop implements Store{
     @Override
     public Set<Food> getItems() {
         return items;
+    }
+
+    @Override
+    public Food remove(Food food) {
+        if(items.remove(food)) {
+            return food;
+        }
+        return null;
     }
 }
