@@ -29,11 +29,7 @@ public class Warehouse implements Store {
     }
 
     @Override
-    public Food remove(Food food) {
-        if(items.remove(food)) {
-            return food;
-        }
-        return null;
+    public void clear() {
+        items.clear();
     }
-
 }

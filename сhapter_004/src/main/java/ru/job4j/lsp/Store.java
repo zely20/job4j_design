@@ -7,7 +7,7 @@ public interface Store {
     public void addFood(Food food);
     public boolean accept(Food food);
     public Set<Food> getItems();
-    public Food remove(Food food);
+    public void clear();
 
     public default int calculatePercent(Food food){
         long currentDate = System.currentTimeMillis();

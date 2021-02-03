@@ -1,7 +1,6 @@
 package ru.job4j.lsp;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ControllQualityImpl implements ControllQualityStrategy {
 
@@ -27,12 +26,15 @@ public class ControllQualityImpl implements ControllQualityStrategy {
 
     @Override
     public void resort() {
+        List<Food> temp = new LinkedList<>();
         for (Store store : mapStore) {
             for (Food food : store.getItems()) {
-                Food temp = store.remove(food);
-                store.addFood(temp);
+                temp.add(food);
             }
+            store.clear();
         }
-        ;
+        for (Food food : temp) {
+            addFood(food);
+        }
     }
 }
