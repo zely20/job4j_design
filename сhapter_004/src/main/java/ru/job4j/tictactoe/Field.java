@@ -1,4 +1,6 @@
 package ru.job4j.tictactoe;
 
-public class Field {
+public interface Field {
+
+    boolean check();
 }

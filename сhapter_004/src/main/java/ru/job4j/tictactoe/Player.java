@@ -2,5 +2,5 @@ package ru.job4j.tictactoe;
 
 public interface Player {
 
-    void makeMove();
+    void makeMove(Mark mark);
 }
